@@ -1,10 +1,13 @@
+# config.py
+
 import os
 import sys
 from pathlib import Path
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key')
-    DEBUG = True
+    PORT = 21823
+    DEBUG = False
 
     REMOTE_DB = {
         'ADDRESS': os.environ.get('DB_ADDRESS'),
@@ -14,7 +17,8 @@ class Config:
     }
 
     USE_REMOTE_DB = False
-
+    NOTIFICATION_API_KEY = "your-secure-api-key"
+    
     # 获取操作系统平台
     platform = sys.platform
 
@@ -53,3 +57,6 @@ class Config:
         SQLALCHEMY_DATABASE_URI = LOCAL_DB_URI
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # 快捷键配置
+    SHORTCUT_KEY = os.environ.get('SHORTCUT_KEY', 'alt+r')  # 默认快捷键为 Alt + R

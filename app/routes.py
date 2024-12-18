@@ -1,5 +1,8 @@
 
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, render_template, request
+
+from app.utils.helper import notify
+from config import Config
 from .controllers.main_controller import main_api
 from .controllers.plans_controller import plans_api
 from .controllers.notes_controller import notes_api
@@ -40,6 +43,24 @@ def papers():
 @main_bp.route('/notes')
 def notes():
     return render_template('notes.html')
+
+@main_bp.route('/send_notification', methods=['POST'])
+def send_notification():
+    data = request.get_json()
+    api_key = data.get('api_key')
+    
+    # 验证 API 密钥
+    if api_key != Config.NOTIFICATION_API_KEY:
+        return jsonify({'status': 'error', 'message': '无效的 API 密钥。'}), 403
+    
+    title = data.get('title', '默认标题')
+    message = data.get('message', '这是一个通知消息。')
+    
+    try:
+        notify(title, message)
+        return jsonify({'status': 'success', 'message': '通知已发送。'}), 200
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': f'发送通知失败: {str(e)}'}), 500
 
 main_bp.register_blueprint(main_api)
 main_bp.register_blueprint(plans_api)

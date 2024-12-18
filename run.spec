@@ -1,32 +1,56 @@
 # run.spec
 
-from PyInstaller.utils.hooks import collect_data_files
+from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 import os
 
-# 设置 PyInstaller 配置
+# Collect all data files in the 'app' package
+app_datas = collect_data_files('app')
+
+# Manually specify additional data files not covered by collect_data_files
+additional_datas = [
+    ('app/static', 'app/static'),
+    ('app/templates', 'app/templates'),
+    # You can omit ('app/__init__.py', 'app/__init__.py') since it's part of the package
+    # Similarly, run.py and config.py are already included as scripts or modules
+]
+
+# Combine all data files
+all_datas = app_datas + additional_datas
+
+# Collect all submodules of 'plyer.platforms' to ensure dynamic imports are included
+plyer_submodules = collect_submodules('plyer.platforms')
+
+# Collect all submodules of 'pystray' to ensure platform-specific backends are included
+pystray_submodules = collect_submodules('pystray')
+
+# Define hidden imports
+hidden_imports = [
+    'plyer.platforms.win.notification',  # Ensure Windows notification backend is included
+    'pystray._win32',                     # pystray Windows backend
+    'pystray._darwin',                    # pystray macOS backend (if needed)
+    'pystray._xorg',                      # pystray X11 backend (if needed)
+    # Add any other hidden imports if necessary
+]
+
+# Alternatively, include all submodules collected above
+# hidden_imports = plyer_submodules + pystray_submodules
+
+# Initialize PyInstaller Analysis
 a = Analysis(
-    ['run.py'],
-    pathex=['.'],
+    ['run.py'],                           # Your main script
+    pathex=['.'],                         # Path to search for imports
     binaries=[],
-    datas=[
-        # 包括 app 文件夹下的所有文件
-        ('app/static', 'app/static'),
-        ('app/templates', 'app/templates'),
-        ('app/__init__.py', 'app/__init__.py'),
-        # 根目录下的 run.py 和 config.py
-        ('run.py', 'run.py'),
-        ('config.py', 'config.py'),
-    ],
-    hiddenimports=[],
-    hookspath=[],
-    runtime_hooks=[],
-    excludes=[]
+    datas=all_datas,                      # Data files to include
+    hiddenimports=hidden_imports,         # Hidden imports to include
+    hookspath=[],                         # Custom hook paths
+    runtime_hooks=[],                     # Runtime hooks
+    excludes=[]                           # Exclude any unnecessary modules
 )
 
-# 设置打包的选项
-pyz = PYZ(a.pure, a.zipped_data)  # 不使用 BLOCK_CIPHER
+# Create the PYZ archive
+pyz = PYZ(a.pure, a.zipped_data)
 
-# 设置 EXE 生成时的图标
+# Define the EXE
 exe = EXE(
     pyz,
     a.scripts,
@@ -37,12 +61,12 @@ exe = EXE(
     name='run',
     debug=False,
     bootloader_ignore_signals=False,
-    strip=False,
+    strip=True,
     upx=True,
-    console=False,  # 设置为 False 以隐藏命令行窗口
-    icon=os.path.join('app', 'static', 'images', 'Raphael.png')  # 设置图标路径
+    console=False,  # Hide the console window
+    icon=os.path.join('app', 'static', 'images', 'Raphael.ico')  # Use .ico for Windows compatibility
 )
 
-# 如果你有更多的资源文件，可以继续使用 collect_data_files 来自动收集资源
-# 例如，自动收集 app/static 和 app/templates 中的所有文件
-datas = collect_data_files('app')
+# Note:
+# - Ensure that 'Raphael.ico' exists in 'app/static/images/'. PyInstaller prefers .ico files for Windows icons.
+# - If you're packaging for macOS, you might want to use a .icns file instead and adjust the icon path accordingly.
