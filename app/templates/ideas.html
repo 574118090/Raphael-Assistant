@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+
+{% block title %}想法{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ideas.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="animate__animated animate__fadeIn">
+        <h1>想法</h1>
+                <button id="open-create-idea" class="create-idea-button">创建新想法</button>
+
+                <div id="create-idea-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>创建新想法</h2>
+                <form id="create-idea-form">
+                    <input type="text" id="idea-title" placeholder="标题" required>
+                    <input type="text" id="idea-description" placeholder="描述" required>
+                    <button type="submit">创建</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="idea-list">
+            <ul id="ideas-container">
+                            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/ideas.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,154 @@
+
+.view-idea-container {
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.back-button {
+    display: inline-flex;
+    padding: 8px 12px;
+    background-color: #2f2f2f;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.back-button:hover {
+    background-color: #333333;
+}
+
+.idea-detail {
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.idea-detail form {
+    display: flex;
+    flex-direction: column;
+}
+
+.idea-detail form label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.idea-detail form input {
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.idea-detail form button {
+    margin-top: 25px;
+    padding: 9px;
+    background-color: #2f2f2f;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 10%;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.idea-detail form button:hover {
+    background-color: #218838;
+}
+
+.related-papers {
+    margin-top: 40px;
+}
+
+.related-papers h4 {
+    margin-bottom: 15px;
+    color: #333333;
+}
+
+.related-papers ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.related-papers li {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.related-papers li .delete-related-paper {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #2f2f2f;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.related-papers li .delete-related-paper:hover {
+    color: #2f2f2f;
+}
+
+#add-related-paper-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#add-related-paper-form input {
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#add-related-paper-form button {
+    padding: 10px;
+    background-color: #2f2f2f;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+#add-related-paper-form button:hover {
+    background-color: #138496;
+}
+
+.input-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background-color: transparent;
+    border: transparent;
+    resize: none;
+}
+
+.idea-label{
+    margin-top: 100px;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#related-papers-container{
+    gap:20px;
+}
+
+.related-paper-div{
+    width: 100%;
+}

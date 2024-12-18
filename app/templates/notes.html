@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}笔记{% endblock %}
+
+{% block content %}
+    <div class="animate__animated animate__fadeIn">
+        <h1>笔记</h1>
+        <div class="notes-header">
+            <button id="back-button" class="back-button"><i class="fas fa-arrow-left"></i> 返回</button>
+            <button id="new-folder-button" class="back-button"><i class="fas fa-folder-plus"></i> 新建文件夹</button>
+            <button id="new-note-button" class="back-button"><i class="fas fa-file-medical"></i> 新建笔记</button>
+            <div id="current-path" class="current-path">当前目录: /</div>
+        </div>
+                <div id="note-viewer" class="note-viewer" style="display: none;">
+            <div class="viewer-header">
+                <button id="save-button" class="save-button">保存</button>
+                <button id="close-button" class="close-button">&times;</button>
+            </div>
+            <div id="rendered-content" class="rendered-content"></div>
+        </div>
+        <div id="notes-container" class="notes-container">
+                    </div>
+    </div>
+
+        <div id="context-menu" class="context-menu">
+        <ul>
+            <li id="context-rename">重命名</li>
+            <li id="context-delete">删除</li>
+        </ul>
+    </div>
+
+        <div id="delete-modal" class="modal">
+        <div class="modal-content animate__animated animate__zoomIn">
+            <span class="close-button">&times;</span>
+            <h2>确认删除</h2>
+            <p>确定要删除 <span id="delete-item-name"></span> 吗？</p>
+            <button id="confirm-delete" class="modal-button confirm">确定</button>
+            <button id="cancel-delete" class="modal-button cancel">取消</button>
+        </div>
+    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='js/notes.js') }}"></script>
+{% endblock %}

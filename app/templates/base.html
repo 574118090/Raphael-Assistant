@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拉斐尔 - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/Raphael.png') }}" alt="Rapheal Logo" class="logo">
+            </div>
+            <h2>Raphael</h2>
+            <p style="text-align: center; margin-top: -30px; font-size: 12px;">一个忠诚的项目管家</p>
+            <ul>
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i>主页</a></li>
+                <li><a href="/plans" class="nav-link"><i class="fas fa-calendar-alt"></i>计划</a></li>
+                <li><a href="/projects" class="nav-link"><i class="fas fa-project-diagram"></i>项目</a></li>
+                <li><a href="/ideas" class="nav-link"><i class="fas fa-lightbulb"></i>想法</a></li>
+                <li><a href="/papers" class="nav-link"><i class="fas fa-file-alt"></i>论文</a></li>
+                <li><a href="/notes" class="nav-link"><i class="fas fa-sticky-note"></i>笔记</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!-- templates/plans.html -->
+
+{% extends "base.html" %}
+
+{% block title %}计划{% endblock %}
+
+{% block extra_css %}
+    <!-- 引入 plans.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plans.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="animate__animated animate__fadeIn relative-container">
+        <h1>计划</h1>
+        <div id="calendar" class="calendar-container animate__animated animate__fadeInUp"></div>
+        <div id="plans-list" class="plans-list animate__animated animate__fadeInUp">
+            <!-- 动态加载计划内容 -->
+            <h2>当天的计划</h2>
+            <div id="plans-container">
+                <p>请选择一个日期查看计划。</p>
+            </div>
+        </div>
+        <!-- 悬浮添加计划表单 -->
+        <div class="floating-add-plan">
+            <h2>添加计划</h2>
+            <form id="add-plan-form">
+                <input type="text" id="plan-title" name="title" placeholder="计划标题" required>
+                <input type="text" id="plan-description" name="description" placeholder="计划描述" required>
+                <button type="submit">添加计划</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- 引入 FullCalendar 的JS -->
+    <script src="{{ url_for('static', filename='dist/fullcalendar/index.global.min.js') }}"></script>
+    <!-- 初始化和管理 FullCalendar 及计划功能的脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarEl = document.getElementById('calendar');
+            const plansContainer = document.getElementById('plans-container');
+            const addPlanForm = document.getElementById('add-plan-form');
+            let selectedDate = new Date().toISOString().split('T')[0]; 
+                        const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                selectable: true,
+                unselectAuto: false,                 select: function(info) {
+                    selectedDate = info.startStr;
+                    fetchPlans(selectedDate);
+                },
+                dateClick: function(info) {
+                    selectedDate = info.dateStr;
+                    fetchPlans(selectedDate);
+                },
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: ''                 },
+                height: 'auto',
+                themeSystem: 'standard',
+                events: '/api/plans/',                 eventDidMount: function(info) {
+                                        if (info.event.extendedProps.description) {
+                        info.el.setAttribute('title', info.event.extendedProps.description);
+                    }
+                }
+            });
+
+            calendar.render();
+
+                        function fetchPlans(date = selectedDate) {
+                fetch(`/api/plans/?date=${date}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        displayPlans(data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching plans:', error);
+                        plansContainer.innerHTML = `<p>加载计划时发生错误。</p>`;
+                    });
+            }
+
+                        function displayPlans(plans) {
+                plansContainer.innerHTML = '';
+                if (plans.length === 0) {
+                    plansContainer.innerHTML = '<p>当天没有计划。</p>';
+                    return;
+                }
+                plans.forEach(plan => {
+                    const planDiv = document.createElement('div');
+                    planDiv.classList.add('plan-item', 'animate__animated', 'animate__fadeInUp');
+
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.classList.add('plan-details');
+                    detailsDiv.innerHTML = `<h3>${plan.title}</h3><p>${plan.description || '无描述'}</p>`;
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.classList.add('delete-button');
+                    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i> 删除';
+                    deleteBtn.addEventListener('click', () => deletePlan(plan.id));
+
+                    planDiv.appendChild(detailsDiv);
+                    planDiv.appendChild(deleteBtn);
+                    plansContainer.appendChild(planDiv);
+                });
+            }
+
+                        addPlanForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const title = document.getElementById('plan-title').value.trim();
+                const description = document.getElementById('plan-description').value.trim();
+                const date = selectedDate;
+
+                if (!title || !date) {
+                    alert('标题和日期是必填项。');
+                    return;
+                }
+
+                fetch('/api/plans/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title, description, date })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => { throw err; });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.message === 'Plan added successfully') {
+                            fetchPlans(date);
+                            addPlanForm.reset();
+                            calendar.refetchEvents();                         } else {
+                            alert(`错误: ${data.error}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error adding plan:', error);
+                        if (error.error) {
+                            alert(`错误: ${error.error}`);
+                        } else {
+                            alert('添加计划时发生错误。');
+                        }
+                    });
+            });
+
+                        function deletePlan(planId) {
+                fetch(`/api/plans/${planId}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => { throw err; });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.message === 'Plan deleted successfully') {
+                            fetchPlans(selectedDate);
+                            calendar.refetchEvents();                         } else {
+                            alert(`错误: ${data.error}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting plan:', error);
+                        if (error.error) {
+                            alert(`错误: ${error.error}`);
+                        } else {
+                            alert('删除计划时发生错误。');
+                        }
+                    });
+            }
+
+                        fetchPlans(selectedDate);
+        });
+    </script>
+{% endblock %}

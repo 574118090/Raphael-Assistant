@@ -1,0 +1,76 @@
+<!-- templates/projects.html -->
+
+{% extends "base.html" %}
+
+{% block title %}项目{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/projects.css') }}">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p/wI8+YUT4RJgmUfaW/N2/5E6g1JY5p3+vjRVHVQaD+6DKijI3iV25+qxHusPIA6Xk6xH8MfLOoQa7tFrvZtJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+    <div class="animate__animated animate__fadeIn">
+        <h1>项目</h1>
+        <div class="project-actions">
+            <button id="open-create-project-btn" class="btn"><i class="fas fa-plus"></i> 创建项目</button>
+            <input type="text" id="search-projects" placeholder="搜索项目...">
+        </div>
+        <div class="project-list">
+            <!-- 项目卡牌将通过 JavaScript 动态加载 -->
+        </div>
+    </div>
+
+    <!-- 创建项目弹出窗口 -->
+    <div id="create-project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>创建新项目</h2>
+            <form id="create-project-form">
+                <label for="project-name">项目名称</label>
+                <input type="text" id="project-name" name="name" placeholder="输入项目名称" required>
+
+                <label for="project-description">简介</label>
+                <textarea id="project-description" name="description" placeholder="输入项目简介" style="resize: none;"></textarea>
+
+                <label for="project-client">甲方</label>
+                <input type="text" id="project-client" name="client" placeholder="输入甲方名称" required>
+
+                <label for="project-type">类型</label>
+                <input type="text" id="project-type" name="type" placeholder="输入项目类型" required>
+
+                <button type="submit">创建项目</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 编辑项目弹出窗口 -->
+    <div id="edit-project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>编辑项目</h2>
+            <form id="edit-project-form">
+                <input type="hidden" id="edit-project-original-name" name="original_name">
+
+                <label for="edit-project-name">项目名称</label>
+                <input type="text" id="edit-project-name" name="name" placeholder="输入项目名称" required>
+
+                <label for="edit-project-description">简介</label>
+                <textarea id="edit-project-description" name="description" placeholder="输入项目简介" style="resize: none;"></textarea>
+
+                <label for="edit-project-client">甲方</label>
+                <input type="text" id="edit-project-client" name="client" placeholder="输入甲方名称" required>
+
+                <label for="edit-project-type">类型</label>
+                <input type="text" id="edit-project-type" name="type" placeholder="输入项目类型" required>
+
+                <button type="submit">保存更改</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/projects.js') }}"></script>
+{% endblock %}

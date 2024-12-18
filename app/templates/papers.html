@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+
+{% block title %}论文管理{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/papers.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <h1>论文</h1>
+    <button id="open-create-paper" class="back-button">添加记录</button>
+    
+    <div class="sort-filter-container">
+        <h2>筛选：</h2>
+        <input type="text" id="filter-category" placeholder="输入关键词...">
+    </div>
+    
+    <div class="papers-container">
+                <div class="papers-list">
+            <ul id="papers-container">
+                            </ul>
+        </div>
+
+                <div id="loading-indicator" class="loading-indicator" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i> 正在加载...
+        </div>
+    </div>
+
+        <div id="create-paper-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>创建新论文</h2>
+            <form id="create-paper-form" enctype="multipart/form-data">
+                <label for="paper-title">标题：</label>
+                <input type="text" id="paper-title" name="title" placeholder="论文标题" required>
+
+                <label for="paper-category">分类：</label>
+                <input type="text" id="paper-category" name="category" placeholder="论文分类">
+
+                <label for="pdf-url">PDF 地址：</label>
+                <input type="url" id="pdf-url" name="pdf_url" placeholder="输入 PDF 的 URL 来自动下载">
+
+                                
+                <button type="submit">创建论文</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/papers.js') }}"></script>
+{% endblock %}

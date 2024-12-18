@@ -1,0 +1,501 @@
+/* static/css/view_project.css */
+
+/* General Styles */
+body, .animate__animated, .animate__fadeIn {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+/* Management Container */
+.management-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+/* File Management Section */
+.file-management {
+    display: block;
+    flex: 1;
+    min-width: 300px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#upload-file-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #333333;
+    color: #ffffff;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+.custom-file-upload:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+#upload-file-form input[type="file"] {
+    display: none;
+}
+
+#upload-file-form input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#upload-file-form button {
+    padding: 13px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#upload-file-form button:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+#file-search {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.file-list-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#file-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style-type: none;
+    padding: 0;
+}
+
+#file-list li {
+    width: 100px;
+    height: 100px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+#file-list li:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.file-item i {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.file-item a {
+    font-size: 12px;
+    color: #333333;
+    text-decoration: none;
+    word-wrap: break-word;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.file-item a:hover {
+    color: #000000;
+}
+
+.delete-file {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.delete-file:hover {
+    color: #ff1a1a;
+}
+
+/* Task Management Section */
+.task-management {
+    flex: 1;
+    min-width: 300px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#add-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#add-task-form input,
+#add-task-form textarea,
+#add-task-form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-task-form textarea {
+    resize: vertical;
+}
+
+#add-task-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#add-task-form button:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+.task-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#task-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+}
+
+.task-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    padding: 10px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.task-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 5px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.task-description {
+    font-size: 14px;
+    color: #666666;
+    resize: none;
+    border: none;
+    background: none;
+    width: 100%;
+    height: 60px;
+}
+
+.task-status {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.delete-task {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.delete-task:hover {
+    color: #ff1a1a;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.page-btn:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+/* Milestone Management Section */
+.milestone-management {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.milestone-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.milestone-controls {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#add-milestone-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#add-milestone-form input[type="text"],
+#add-milestone-form textarea,
+#add-milestone-form input[type="date"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-milestone-form button {
+    padding: 10px;
+    font-size: 14px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#add-milestone-form button:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+#milestone-list-container {
+    height: 170px;
+    overflow-y: auto;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#milestone-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#milestone-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+#milestone-list li:last-child {
+    border-bottom: none;
+}
+
+#milestone-list li:hover {
+    background-color: #bcbcbc;
+}
+
+.milestone-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.milestone-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.milestone-date {
+    font-size: 14px;
+    color: #666666;
+}
+
+.milestone-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-milestone,
+.delete-milestone {
+    background: none;
+    border: none;
+    color: #333333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.edit-milestone:hover,
+.delete-milestone:hover {
+    color: #555555;
+}
+
+/* TimelineJS Container */
+.milestone-timeline {
+    flex: 2;
+    width: 300px;
+    height: 410px; /* Adjust as needed */
+}
+
+/* Override TimelineJS Fonts */
+#timeline {
+    font-family: Arial, sans-serif !important;
+}
+
+/* Back Button */
+#back-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#back-btn:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .management-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .management-container {
+        flex-direction: column;
+    }
+
+    .file-management,
+    .task-management {
+        min-width: 100%;
+    }
+
+    .milestone-container {
+        flex-direction: column;
+    }
+
+    .milestone-timeline {
+        height: 300px; /* Adjust for smaller screens */
+    }
+}
+
+.tl-storyslider{
+    height: 150px;
+}
+
+#milestone-description {
+    resize: none;
+}

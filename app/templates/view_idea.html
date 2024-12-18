@@ -1,0 +1,102 @@
+
+{% extends "base.html" %}
+
+{% block title %}查看想法{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_idea.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="animate__animated animate__fadeIn view-idea-container">
+        <div class="idea-detail">
+            <form id="edit-idea-form">
+                <div>
+                    <a href="/ideas" class="back-button"><i class="fas fa-arrow-left"></i> 返回想法列表</a>
+                    <button type="submit" class="back-button" style="text-align: center;">保存</button>
+                </div>
+                
+                <input type="text" id="edit-title" name="title" required style="font-size: 30px; background-color: transparent; width: 100%; border: none; padding-left: 0px; " />
+                <br>
+                <input type="text" id="edit-description" name="description" required style="font-size: 18px; width: 100%; background-color: transparent; border: none; padding: 0%; margin-bottom: 30px;" />
+                
+                <label for="edit-background" class="idea-label">背景：</label>
+                <textarea type="text" id="edit-background" name="background" class="input-text"></textarea>
+                
+                <label for="edit-motivation" class="idea-label">动机：</label>
+                <textarea type="text" id="edit-motivation" name="motivation" class="input-text"></textarea>
+                
+                <label for="edit-challenge" class="idea-label">挑战：</label>
+                <textarea type="text" id="edit-challenge" name="challenge" class="input-text"></textarea>
+                
+                <label for="edit-method" class="idea-label">方法：</label>
+                <textarea type="text" id="edit-method" name="method" class="input-text"></textarea>
+                
+                <label for="edit-experiment" class="idea-label">实验部分：</label>
+                <textarea type="text" id="edit-experiment" name="experiment" class="input-text"></textarea>
+                
+                <label for="edit-innovation" class="idea-label">核心创新点：</label>
+                <textarea type="text" id="edit-innovation" name="innovation" class="input-text"></textarea>
+            </form>
+
+            <div class="related-papers">
+                <h4>关联论文</h4>
+                <ul id="related-papers-container">
+                                    </ul>
+            </div>
+
+            <div>
+                <form id="add-related-paper-form">
+                    <input type="text" name="title" placeholder="论文标题" required>
+                    <input type="text" name="content" placeholder="内容">
+                    <input type="text" name="link" placeholder="链接">
+                    <button type="submit">添加关联论文</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // 获取指定id的元素的高度
+        function getHeightFromLocalStorage(id) {
+            return localStorage.getItem(id); // 从localStorage中获取保存的高度
+        }
+
+        // 存储指定id的元素的高度
+        function saveHeightToLocalStorage(id, height) {
+            localStorage.setItem(id, height); // 将高度保存到localStorage
+        }
+
+        function adjustHeight(textarea) {
+            // 重置高度，确保内容完全展开
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+
+            // 保存当前高度到localStorage
+            saveHeightToLocalStorage(textarea.id, textarea.style.height);
+        }
+
+        // 等待页面加载后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.input-text').forEach(textarea => {
+                // 恢复之前保存的高度
+                const savedHeight = getHeightFromLocalStorage(textarea.id);
+                if (savedHeight) {
+                    textarea.style.height = savedHeight;  // 恢复高度
+                } else {
+                    adjustHeight(textarea);  // 页面加载时自动调整高度
+                }
+            });
+        });
+
+        // 给textarea绑定input事件，动态调整高度
+        document.querySelectorAll('.input-text').forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                adjustHeight(this);  // 每次输入时自动调整高度
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/view_idea.js') }}"></script>
+{% endblock %}

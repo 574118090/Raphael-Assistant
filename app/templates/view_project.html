@@ -1,0 +1,97 @@
+<!-- templates/view_project.html -->
+
+{% extends "base.html" %}
+
+{% block title %}项目详情 - {{ project_name }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_project.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+{% endblock %}
+
+{% block content %}
+<div style="display: flex; align-items: center;">
+    <h1 style="text-align: left;">项目: {{ project_name }}</h1>
+    <button id="back-btn" class="back-button" style="height: 100%; margin-right: 0%;"><i class="fas fa-arrow-left"></i> 返回项目列表</button>
+</div>
+    <div class="animate__animated animate__fadeIn" data-project-name="{{ project_name }}">
+        <div class="management-container">
+            <div class="file-management">
+                <form id="upload-file-form" enctype="multipart/form-data">
+                    <label for="file-input" style="display: flex; gap: 10px; align-items: center; justify-content: center" class="custom-file-upload">
+                        <i class="fas fa-upload"></i> 
+                        <p id="file-choosen" style="margin: 0%;">选择文件</p>
+                    </label>
+                    <input type="file" id="file-input" name="file" required>
+                    <div style="display: flex; gap: 15px;">
+                        <input type="text" id="file-category" name="category" placeholder="文件分类 (可选)" style="display: none;">
+                        <button type="submit"><i class="fas fa-upload"></i> 上传</button>
+                    </div>
+                </form>
+                <input type="text" id="file-search" placeholder="搜索文件...">
+                <div class="file-list-container">
+                    <ul id="file-list">
+                        <!-- 文件列表将通过 JavaScript 动态加载 -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 任务管理 -->
+            <div class="task-management">
+                <form id="add-task-form">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="task-title" placeholder="任务标题" required>
+                        <input id="task-description" style="width: 80%;" placeholder="任务描述"></input>
+                    </div>
+                    <select id="task-status">
+                        <option value="Pending">待完成</option>
+                        <option value="In Progress">进行中</option>
+                        <option value="Completed">已完成</option>
+                    </select>
+                    <button type="submit">添加任务</button>
+                </form>
+                <div class="task-list-container">
+                    <div id="task-cards">
+                        <!-- 任务卡片将通过 JavaScript 动态加载 -->
+                    </div>
+                    <div class="pagination">
+                        <button id="prev-page" class="page-btn">上一页</button>
+                        <span id="current-page">1</span>
+                        <button id="next-page" class="page-btn">下一页</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日程管理 -->
+        <div class="milestone-management">
+            <div class="milestone-container">
+                <!-- 左侧：现有模块 -->
+                <div class="milestone-controls">
+                    <form id="add-milestone-form">
+                        <input type="text" id="milestone-title" placeholder="日程标题" required>
+                        <textarea id="milestone-description" placeholder="日程描述"></textarea>
+                        <input type="date" id="milestone-date" required>
+                        <button type="submit" style="font-size: 16px!important;">添加日程</button>
+                    </form>
+                    <div id="milestone-list-container">
+                        <ul id="milestone-list">
+                            <!-- 日程列表将通过 JavaScript 动态加载 -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 右侧：TimelineJS 时间线 -->
+                <div class="milestone-timeline">
+                    <div id="timeline"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <!-- TimelineJS JS -->
+    <script src="{{ url_for('static', filename='dist/timelineJS/timeline.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/view_project.js') }}"></script>
+{% endblock %}

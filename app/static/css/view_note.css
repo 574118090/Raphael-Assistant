@@ -1,0 +1,301 @@
+@font-face {
+    font-family: 'PingFang-Bold';
+    src: url('{{ url_for(\'static\', filename=\'font/PingFang-Bold.ttf\') }}') format('ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+.toastui-editor-contents {
+    font-family: '微软雅黑';     font-size: 16px;     line-height: 1.6;     color: #333333;     margin: 0;
+    padding: 0;
+}
+
+.ProseMirror{
+    font-family: "PingFang-Bold";
+}
+
+.view-note-container {
+    padding: 20px;
+    max-width: 90%;
+    height: 82vh;
+    margin: auto;
+}
+
+.view-note-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.current-path {
+    flex-grow: 1;
+    font-size: 18px;
+    color: #555;
+}
+
+.back-button, .save-button {
+    background-color: #2f2f2f;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.back-button i, .save-button i {
+    margin-right: 8px;
+}
+
+.back-button:hover:not(:disabled), .save-button:hover {
+    background-color: #929292;
+    transform: translateY(-2px);
+}
+
+.back-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.stackedit-container {
+    height: 800px;     border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal {
+    display: none;     position: fixed;     z-index: 3000;     left: 0;
+    top: 0;
+    width: 100%;     height: 100%;     overflow: auto;     background-color: rgba(0,0,0,0.4); }
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;     padding: 20px;
+    border: 1px solid #888;
+    width: 400px;     border-radius: 8px;
+    text-align: center;
+    animation: fadeInZoom 0.1s;
+}
+
+.export-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.export-button {
+    background-color: #2f2f2f;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.export-button:hover {
+    background-color: #b2b2b2;
+}
+
+.export-menu {
+    display: none;     position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+}
+
+.export-option {
+    background-color: #f9f9f9;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.export-option:hover {
+    background-color: #f1f1f1;
+}
+
+.export-dropdown:hover .export-menu {
+    display: block;
+}
+
+@keyframes fadeInZoom {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.modal-button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.modal-button.confirm {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-button.confirm:hover {
+    background-color: #4cae4c;
+}
+
+.modal-button.cancel {
+    background-color: #d9534f;
+    color: white;
+}
+
+.modal-button.cancel:hover {
+    background-color: #c9302c;
+}
+
+.view-note-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#viewer {
+    flex: 0 1 70%;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#editor {
+    flex: 1;
+    width: 100%;
+    
+}
+
+.toastui-editor-main {
+    height: inherit;
+    min-height: 200px;
+    position: relative;
+}
+
+.toastui-editor-toolbar{
+    display: none;
+}
+
+.divider {
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+.toastui-editor-contents h1{
+    border-bottom: none;
+    font-size: 33px;
+    font-weight: 800;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.toastui-editor-contents h2{
+    border-bottom: none;
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 50px;
+    margin-bottom: 0px;
+}
+
+.toastui-editor-contents h3{
+    border-bottom: none;
+    font-size: 20px;
+    font-weight: 800;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.toastui-editor-md-heading1{
+    font-size: 13px;
+}
+
+.toastui-editor-md-heading2{
+    font-size: 13px;
+}
+
+.toastui-editor-md-heading3{
+    font-size: 13px;
+}
+
+.toastui-editor-md-heading4{
+    font-size: 13px;
+}
+
+.toastui-editor-md-heading5{
+    font-size: 13px;
+}
+
+.toastui-editor-contents pre{
+    background-color: #f5f5f5;
+}
+
+.token.atrule, .token.attr-value, .token.keyword {
+    color: #4a668e;
+}
+
+.token.class-name, .token.function{
+    color: #c92337;
+}
+
+.toastui-editor-contents ul>li:before {
+    background-color: #727272;
+    border-radius: 50%;
+    content: "";
+    height: 5px;
+    margin-left: -17px;
+    margin-top: 10px;
+    width: 5px;
+}
+
+.toastui-editor-contents blockquote {
+    border-left: 4px solid #222222;
+    color: #222222;
+    background-color: #f7f7f7;
+    margin: 14px 0;
+    padding: 0 16px;
+}
+
+.toastui-editor-contents blockquote ol, .toastui-editor-contents blockquote p, .toastui-editor-contents blockquote ul {
+    color: #363530;
+}
+
+.katex {
+    display: block;            text-align: center;        margin: 0 auto;        }

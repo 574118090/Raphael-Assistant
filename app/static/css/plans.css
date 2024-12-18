@@ -1,0 +1,182 @@
+
+@import url('styles.css');
+
+
+.relative-container {
+    position: relative;
+}
+
+.calendar-container {
+    margin-bottom: 30px;
+        max-width: 1400px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.plans-list {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    max-width: 1360px;
+    margin: 20px auto;
+}
+
+.plans-list h2 {
+    margin-top: 0;
+    color: #333333;
+}
+
+.plan-item {
+    padding: 10px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.plan-item:last-child {
+    border-bottom: none;
+}
+
+.plan-item:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.plan-details {
+    flex-grow: 1;
+}
+
+.plan-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.plan-details p {
+    margin: 0;
+    color: #7f8c8d;
+}
+
+.delete-button {
+    background-color: #2f2f2f;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #2f2f2f;
+    transform: scale(1.1);
+}
+
+.floating-add-plan {
+    position: fixed;     bottom: 0;     left: 50%;     transform: translateX(-50%);     background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
+    z-index: 100;     width: 80%;     max-width: 800px;     display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    bottom: 5%;
+}
+
+.floating-add-plan h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333333;
+    flex: 1;
+}
+
+.floating-add-plan form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 3;
+    gap: 10px;
+    width: 100%;
+}
+
+.floating-add-plan input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    flex: 2;
+    font-size: 14px;
+}
+
+.floating-add-plan input:focus {
+    border-color: #333333;
+    outline: none;
+}
+
+.floating-add-plan button {
+    padding: 8px 16px;
+    background-color: #2f2f2f;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    flex: 1;
+    font-size: 14px;
+}
+
+.floating-add-plan button:hover {
+    background-color: #6d6d6d;
+    transform: scale(1.05);
+}
+
+.fc .fc-button-primary {
+    background-color: #2f2f2f;
+    border-color: var(--fc-button-border-color);
+    color: var(--fc-button-text-color);
+}
+
+
+@media (max-width: 768px) {
+    .calendar-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .plans-list {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .floating-add-plan {
+        width: 95%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .floating-add-plan form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .floating-add-plan input {
+        flex: unset;
+        width: 100%;
+    }
+
+    .floating-add-plan button {
+        flex: unset;
+        width: 100%;
+    }
+}

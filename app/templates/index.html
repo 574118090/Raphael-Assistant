@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+
+{% block title %}主页{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+        <div class="grid-container animate__animated animate__fadeIn">
+        
+                <div class="grid-item quote">
+            <div class="bot-name">
+                <h1>拉斐尔:</h1>
+            </div>
+            <div class="quote-content">
+                <p id="raphael-quote">“您好，主人。愿您今日有所收获。”</p>
+            </div>
+        </div>
+
+                <div class="grid-item time-weather">
+                        <div class="time-container few-container">
+                <div class="date-time">
+                    <span id="current-time" >--:--:--</span>
+                    <span id="current-date" style="font-size: 16px;">--/--/----</span>
+                </div>
+                                <div class="time-suggestion" id="time-suggestion">
+                                    </div>
+            </div>
+
+                        <div class="weather-container few-container">
+                <div class="weather">
+                    <span id="weather">加载中...</span>
+                    <span id="temperature" style="font-size: 16px;">加载中...</span>
+                </div>
+                                <div class="weather-suggestion" id="weather-suggestion">
+                                    </div>
+            </div>
+        </div>
+
+                <div class="grid-item links">
+            <div class="links-container">
+                <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://scholar.google.com/" target="_blank"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="https://www.bilibili.com/" target="_blank"><i class="fas fa-play-circle"></i> Bilibili</a>
+                <a href="https://www.zhihu.com/" target="_blank"><i class="fab fa-zhihu"></i> Zhihu</a>
+            </div>
+        </div>
+
+                <div class="grid-item memo">
+            <div class="memo-container">
+                <div class="memo-wrapper">
+                                        <div class="memo-list">
+                        <ul id="memo-list">
+                                                    </ul>
+                                                <button id="add-memo" class="add-memo-button" style="font-size: 16px;">添加备忘录</button>
+                    </div>
+                                        <div class="memo-detail">
+                        <div id="memo-detail-content" contenteditable="false" class="editable-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+        <div id="save-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>未保存的更改</h2>
+            <p>您有未保存的更改，是否要保存？</p>
+            <button id="confirm-save" class="modal-button confirm">保存</button>
+            <button id="discard-save" class="modal-button cancel">不保存</button>
+            <button id="cancel-save" class="modal-button cancel">取消</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+    <footer class="footer">
+        <p style="font-size: 12px;">© 2024 Lizhe Chen. Licensed under the MIT License. Developed by Lizhe Chen, Tsinghua University.</p>
+    </footer>
+{% endblock %}
