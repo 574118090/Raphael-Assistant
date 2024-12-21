@@ -3,11 +3,8 @@
 {% block title %}查看笔记{% endblock %}
 
 {% block content %}
-<!-- 引入必要的CSS文件 -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/view_note.css') }}">
-<!-- 引入mathjax和prism的CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.3/katex.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='dist/highlight/default.min.css') }}"/>
 
 <div class="view-note-container">
     <div class="view-note-header">
@@ -42,17 +39,11 @@
     </div>
 </div>
 
-<!-- 引入必要的JavaScript库 -->
-<!-- 加载 markdown-it 和插件 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.5/katex.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-katex/3.0.0/markdown-it-katex.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-prism/3.0.1/markdown-it-prism.min.js"></script>
+<script src="{{ url_for('static', filename='dist/markdown-it/markdown-it.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/highlight/highlight.min.js') }}"></script>
 
-<script src="{{ url_for('static', filename='dist/html2pdf/es6-promise.auto.min.js') }}"></script>
-<script src="{{ url_for('static', filename='dist/html2pdf/jspdf.umd.min.js') }}"></script>
-<script src="{{ url_for('static', filename='dist/html2pdf/html2canvas.min.js') }}"></script>
-<script src="{{ url_for('static', filename='dist/html2pdf/html2pdf.bundle.min.js') }}"></script>
+<script>hljs.highlightAll();</script>
+
+<script src="{{ url_for('static', filename='dist/mathjax/tex-mml-chtml.js') }}"></script>
 <script src="{{ url_for('static', filename='js/view_note.js') }}"></script>
-
 {% endblock %}

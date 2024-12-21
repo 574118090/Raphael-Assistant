@@ -13,22 +13,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const exportMdButton = document.getElementById('export-md');
     const exportTxtButton = document.getElementById('export-txt');
 
-    // 初始化markdown-it
-    const md = markdownit({
-        html: true,
-        linkify: true,
-        typographer: true
+    // 初始化 markdown-it
+    const md = window.markdownit({
+        html: true,             // 允许渲染 HTML 标签
+        linkify: true,          // 自动将 URL 转换为链接
+        typographer: true,      // 启用一些语言增强
+        highlight: function (str, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+                try {
+                    return '<pre class="hljs"><code>' +
+                           hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+                           '</code></pre>';
+                } catch (__) {}
+            }
+
+            return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+        }
     });
 
-    if (window.markdownitKatex && window.markdownitPrism) {
-        console.log("Plugins loaded successfully");
-        md.use(window.markdownitKatex);  // 使用KaTeX插件
-        md.use(window.markdownitPrism); // 使用Prism插件
-    } else {
-        console.error("Plugins not found!");
-    }
+    // 添加 markdown-it 的 MathJax 插件
+    // 这里我们手动处理 $...$ 和 $$...$$ 语法
+    const defaultRender = md.renderer.rules.text || function(tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options);
+    };
 
-    // 快捷键Ctrl+G 保存并渲染
+    md.renderer.rules.text = function (tokens, idx, options, env, self) {
+        let text = tokens[idx].content;
+        
+        // 处理行内数学公式 $...$
+        text = text.replace(/\$(.+?)\$/g, function(match, p1) {
+            return '\\(' + p1 + '\\)';
+        });
+
+        // 处理块级数学公式 $$...$$
+        text = text.replace(/\$\$(.+?)\$\$/g, function(match, p1) {
+            return '\\[' + p1 + '\\]';
+        });
+
+        return defaultRender(tokens, idx, options, env, self);
+    };
+
+    // 快捷键 Ctrl+G 保存并渲染
     document.addEventListener('keydown', (e) => {
         if (e.key === 's' && e.ctrlKey) {
             e.preventDefault();
@@ -80,6 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const markdownText = editorElement.value;
         const htmlContent = md.render(markdownText);
         viewerElement.innerHTML = htmlContent;
+        
+        // MathJax 渲染数学公式
+        if (window.MathJax) {
+            MathJax.typesetPromise([viewerElement]).catch(function (err) {
+                console.error('MathJax typeset failed: ' + err.message);
+            });
+        }
     }
 
     // 监听编辑器内容变化
@@ -104,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function saveNote() {
         const updatedContent = editorElement.value.trim();
         if(updatedContent === originalContent) {
-            exitEditMode();
             return;
         }
 

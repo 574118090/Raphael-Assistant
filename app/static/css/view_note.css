@@ -203,6 +203,7 @@
     background-color: #ccc;
     margin: 10px 0;
 }
+
 /* 基本页面设置 */
 .viewer {
     font-family: 'Roboto', sans-serif;
@@ -242,15 +243,16 @@
 }
 
 /* 代码块样式 */
-.viewer pre {
+.hljs {
+    padding: 10px;
     background-color: #f4f6f9;
-    padding: 15px;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
-    font-family: 'Courier New', monospace;
+    font-family: 'Courier New', monospace !important;
+    font-weight: 500;
     font-size: 16px;
-    color: #3e3e3e;
-    overflow-x: auto;
+    height: 100%;
+    color: #3e3e3e; 
 }
 
 /* 引用样式 */
@@ -322,11 +324,11 @@
 
 /* 代码行内样式 */
 .viewer code {
-    background-color: #f4f6f9;
-    padding: 2px 5px;
     border-radius: 4px;
-    font-family: 'Courier New', monospace !important;
-    font-size: 1em;
+    font-family: 'Consolas';
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
     color: #d9534f;
 }
 
@@ -365,12 +367,6 @@
     font-weight: bold;
 }
 
-/* 代码行内样式 */
-.viewer code {
-    font-family: 'Courier New', monospace;
-    font-size: 1em;
-}
-
 /* 强调文本样式 */
 .viewer strong {
     font-weight: bold;
@@ -380,4 +376,10 @@
 .viewer em {
     font-style: italic;
     color: #666;
+}
+
+/* MathJax 样式调整 */
+.MathJax_Display {
+    text-align: center;
+    margin: 1em 0;
 }

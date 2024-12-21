@@ -21,9 +21,9 @@
 - **Frontend Libraries**:
   - **FullCalendar**: For interactive calendars and scheduling features.
   - **html2pdf**: Converts HTML content into PDF documents.
-  - **KaTeX**: Beautifully renders mathematical formulas.
+  - **MathJax**: Beautifully renders mathematical formulas.
   - **TimelineJS**: Creates dynamic and visually appealing timelines.
-  - **Toast UI Editor**: Provides a Markdown editor for creating and editing notes.
+  - **Markdown-it**: Provides a Markdown compiler for creating and editing notes.
 
 ## Benefits
 
@@ -85,7 +85,7 @@ Contributions and improvements are welcome. Feel free to fork the repository and
 6. **Access Raphael**
 
    - **If running from source**:
-     - Open a browser and visit [http://127.0.0.1:21823](http://127.0.0.1:21823). Raphael will launch and show up in the system tray. Access the app via the tray icon or the shortcut Alt+R.
+     - Open a browser and visit [http://127.0.0.1:21823](http://127.0.0.1:21823). Raphael will launch and show up in the system tray. **Access the app via the tray icon or the shortcut Alt+R.**
    - **If running the `.exe` file**:
      - Raphael will launch and show up in the system tray. Access the app via the tray icon or the shortcut Alt+R.
 
@@ -148,9 +148,9 @@ Use the navigation bar to switch between plans, projects, ideas, papers, and not
 - **Frontend**:
   - **FullCalendar**: For interactive calendar and scheduling features.
   - **html2pdf**: Converts HTML content into PDF documents.
-  - **KaTeX**: Renders mathematical formulas.
+  - **MathJax**: Renders mathematical formulas.
   - **TimelineJS**: Creates dynamic timelines.
-  - **Toast UI Editor**: Provides a Markdown editor for creating and editing notes.
+  - **Markdown-it**: Provides a Markdown compiler for creating and editing notes.
 - **Other Libraries**:
   - **pystray**: For system tray icon integration.
   - **PIL (Pillow)**: Image processing.
