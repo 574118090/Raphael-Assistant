@@ -1,65 +1,58 @@
-
 {% extends "base.html" %}
 
 {% block title %}查看笔记{% endblock %}
 
 {% block content %}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.1/katex.min.css">
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.css"/>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.css"/>
+<!-- 引入必要的CSS文件 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/view_note.css') }}">
+<!-- 引入mathjax和prism的CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.3/katex.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css">
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/view_note.css') }}">
-
-    <div class="view-note-container">
-        <div class="view-note-header">
-            <button id="back-button" class="back-button"><i class="fas fa-arrow-left"></i> 返回</button>
-            <div id="current-path" class="current-path">当前笔记: /</div>
-            <button id="save-button" class="save-button"><i class="fas fa-save"></i> 保存</button>
-            <div class="export-dropdown">
-                <button class="export-button">导出 ▼</button>
-                <div class="export-menu">
-                    <button id="export-pdf" class="export-option">PDF</button>
-                    <button id="export-md" class="export-option">Markdown</button>
-                </div>
+<div class="view-note-container">
+    <div class="view-note-header">
+        <button id="back-button" class="back-button"><i class="fas fa-arrow-left"></i> 返回</button>
+        <div id="current-path" class="current-path">当前笔记: /</div>
+        <button id="save-button" class="save-button"><i class="fas fa-save"></i>保存</button>
+        <div class="export-dropdown">
+            <button class="export-button">导出 ▼</button>
+            <div class="export-menu">
+                <button id="export-pdf" class="export-option">PDF</button>
+                <button id="export-md" class="export-option">Markdown</button>
+                <button id="export-txt" class="export-option">文本</button>
             </div>
         </div>
-        <div class="view-note-content">
-                        <div id="viewer"></div>
-            <div class="divider"></div>
-            <div id="editor" class="floating-editor"></div>
-        </div>
     </div>
-    
-
-        <div id="save-modal" class="modal">
-        <div class="modal-content animate__animated animate__zoomIn">
-            <span class="close-button">&times;</span>
-            <h2>未保存的更改</h2>
-            <p>您有未保存的更改，是否要保存？</p>
-            <button id="confirm-save" class="modal-button confirm">保存</button>
-            <button id="discard-save" class="modal-button cancel">不保存</button>
-            <button id="cancel-save" class="modal-button cancel">取消</button>
-        </div>
+    <div class="view-note-content">
+        <div id="viewer" class="viewer"></div>
+        <div class="divider"></div>
+        <textarea id="editor" class="editor"></textarea>
     </div>
+</div>
 
-        <script src="{{ url_for('static', filename='dist/html2pdf/es6-promise.auto.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/html2pdf/jspdf.umd.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/html2pdf/html2canvas.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/html2pdf/html2pdf.bundle.min.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='dist/katex/katex.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/katex/auto-render.min.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='dist/tui/toastui-chart.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/tui/toastui-editor-all.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/tui/toastui-editor-plugin-chart.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/tui/toastui-editor-plugin-code-syntax-highlight-all.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/tui/tui-color-picker.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='dist/tui/toastui-editor-plugin-table-merged-cell.min.js') }}"></script>
+<!-- 保存模态窗口 -->
+<div id="save-modal" class="modal">
+    <div class="modal-content animate__animated animate__zoomIn">
+        <span class="close-button">&times;</span>
+        <h2>未保存的更改</h2>
+        <p>您有未保存的更改，是否要保存？</p>
+        <button id="confirm-save" class="modal-button confirm">保存</button>
+        <button id="discard-save" class="modal-button cancel">不保存</button>
+        <button id="cancel-save" class="modal-button cancel">取消</button>
+    </div>
+</div>
 
-        <script src="{{ url_for('static', filename='js/view_note.js') }}"></script>
+<!-- 引入必要的JavaScript库 -->
+<!-- 加载 markdown-it 和插件 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.15.5/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-katex/3.0.0/markdown-it-katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it-prism/3.0.1/markdown-it-prism.min.js"></script>
+
+<script src="{{ url_for('static', filename='dist/html2pdf/es6-promise.auto.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/html2pdf/jspdf.umd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/html2pdf/html2canvas.min.js') }}"></script>
+<script src="{{ url_for('static', filename='dist/html2pdf/html2pdf.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/view_note.js') }}"></script>
+
 {% endblock %}

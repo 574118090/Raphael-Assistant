@@ -50,15 +50,26 @@ def edit_project(project_name):
             return jsonify(format_response({'error': '新项目名称已存在'}, status=400)), 400
 
     try:
+        # 更新数据库记录
         project.name = new_name
         project.description = new_description
         project.client = new_client
         project.type = new_type
         db.session.commit()
+
+        # 重命名项目文件夹
+        old_project_path = os.path.join(Config.PROJECTS_FOLDER, project_name)
+        new_project_path = os.path.join(Config.PROJECTS_FOLDER, new_name)
+
+        # 如果项目文件夹名称发生变化，则重命名文件夹
+        if old_project_path != new_project_path:
+            os.rename(old_project_path, new_project_path)
+
         return jsonify(format_response({'message': '项目更新成功'})), 200
     except Exception as e:
         db.session.rollback()
         return jsonify(format_response({'error': str(e)}, status=500)), 500
+
 
 @project_api.route('/', methods=['POST'])
 def create_project():
@@ -177,7 +188,7 @@ def upload_file(project_name):
         return jsonify(format_response({'error': '没有选择文件'}, status=400)), 400
 
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        filename = file.filename
         # 默认上传到项目根目录，可以根据需要添加分类逻辑
         file.save(os.path.join(project_path, filename))
         return jsonify(format_response({'message': '文件上传成功'})), 201

@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 if (data.status === 200) {
                     uploadFileForm.reset();
                     fetchProjectFiles();

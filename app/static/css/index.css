@@ -223,6 +223,12 @@
     position: relative;
 }
 
+.memo-item span{
+    font-size: 16px;
+    width: 90%;
+    text-overflow:clip;
+}
+
 .memo-item.fade-in {
     animation: fadeIn 0.5s forwards;
 }

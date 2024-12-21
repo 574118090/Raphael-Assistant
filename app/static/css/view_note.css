@@ -1,18 +1,8 @@
 @font-face {
     font-family: 'PingFang-Bold';
-    src: url('{{ url_for(\'static\', filename=\'font/PingFang-Bold.ttf\') }}') format('ttf');
+    src: url('{{ url_for(\'static\', filename=\'font/PingFang-Bold.ttf\') }}') format('truetype');
     font-weight: bold;
     font-style: normal;
-}
-
-
-.toastui-editor-contents {
-    font-family: '微软雅黑';     font-size: 16px;     line-height: 1.6;     color: #333333;     margin: 0;
-    padding: 0;
-}
-
-.ProseMirror{
-    font-family: "PingFang-Bold";
 }
 
 .view-note-container {
@@ -35,7 +25,7 @@
     color: #555;
 }
 
-.back-button, .save-button {
+.back-button, .save-button, .export-button {
     background-color: #2f2f2f;
     color: #ffffff;
     border: none;
@@ -52,7 +42,7 @@
     margin-right: 8px;
 }
 
-.back-button:hover:not(:disabled), .save-button:hover {
+.back-button:hover:not(:disabled), .save-button:hover, .export-button:hover {
     background-color: #929292;
     transform: translateY(-2px);
 }
@@ -62,21 +52,25 @@
     cursor: not-allowed;
 }
 
-.stackedit-container {
-    height: 800px;     border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
 .modal {
-    display: none;     position: fixed;     z-index: 3000;     left: 0;
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
     top: 0;
-    width: 100%;     height: 100%;     overflow: auto;     background-color: rgba(0,0,0,0.4); }
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;     padding: 20px;
+    margin: 15% auto;
+    padding: 20px;
     border: 1px solid #888;
-    width: 400px;     border-radius: 8px;
+    width: 400px;
+    border-radius: 8px;
     text-align: center;
     animation: fadeInZoom 0.1s;
 }
@@ -86,25 +80,9 @@
     display: inline-block;
 }
 
-.export-button {
-    background-color: #2f2f2f;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.export-button:hover {
-    background-color: #b2b2b2;
-}
-
 .export-menu {
-    display: none;     position: absolute;
+    display: none;
+    position: absolute;
     right: 0;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -188,28 +166,36 @@
     overflow: hidden;
 }
 
-#viewer {
+.viewer {
+    display: flex;
+    flex-direction: column;
     flex: 0 1 70%;
     overflow-y: auto;
     padding: 20px;
-    background-color: white;
+    background-color: #f9f9f9;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Times New Roman', sans-serif;
+    font-size: 16px;
+    color: #333333;
 }
 
-#editor {
+::marker{
+    padding-top: -50px;
+}
+
+.editor {
     flex: 1;
     width: 100%;
-    
-}
-
-.toastui-editor-main {
-    height: inherit;
-    min-height: 200px;
-    position: relative;
-}
-
-.toastui-editor-toolbar{
-    display: none;
+    padding: 20px;
+    font-family: '微软雅黑', sans-serif;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 .divider {
@@ -217,85 +203,181 @@
     background-color: #ccc;
     margin: 10px 0;
 }
+/* 基本页面设置 */
+.viewer {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    color: #333;
+    gap: 0%;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: #ffffff;
+}
 
-.toastui-editor-contents h1{
-    border-bottom: none;
-    font-size: 33px;
-    font-weight: 800;
-    margin-top: 25px;
-    margin-bottom: 30px;
+/* 标题样式 */
+.viewer h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #212121;
     text-align: center;
 }
 
-.toastui-editor-contents h2{
-    border-bottom: none;
-    font-size: 25px;
-    font-weight: 800;
-    margin-top: 50px;
-    margin-bottom: 0px;
+.viewer h2 {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #212121;
 }
 
-.toastui-editor-contents h3{
-    border-bottom: none;
-    font-size: 20px;
-    font-weight: 800;
-    margin-top: 25px;
-    margin-bottom: 15px;
+.viewer h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #212121;
 }
 
-.toastui-editor-md-heading1{
-    font-size: 13px;
+.viewer p {
+    margin-top: 0px;
+    margin-bottom: -5px;
 }
 
-.toastui-editor-md-heading2{
-    font-size: 13px;
+/* 代码块样式 */
+.viewer pre {
+    background-color: #f4f6f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #3e3e3e;
+    overflow-x: auto;
 }
 
-.toastui-editor-md-heading3{
-    font-size: 13px;
+/* 引用样式 */
+.viewer blockquote {
+    border-left: 4px solid #2f2f2f;
+    padding-left: 15px;
+    margin-top: 0;
+    color: #666;
+    background-color: #f4f6f9;
+    margin: 20px 0;
 }
 
-.toastui-editor-md-heading4{
-    font-size: 13px;
+/* 列表样式 */
+.viewer ol {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    margin-block-end: -20px;
 }
 
-.toastui-editor-md-heading5{
-    font-size: 13px;
+.viewer ul{
+    display: flex;
+    padding-inline-start: 0px;
+    flex-direction: column;
+    margin-block-end: 10px;
+    padding-left: 20px;
 }
 
-.toastui-editor-contents pre{
-    background-color: #f5f5f5;
+.viewer li {
+    flex: auto;
+    margin-block-start: 0px;
 }
 
-.token.atrule, .token.attr-value, .token.keyword {
-    color: #4a668e;
+/* 链接样式 */
+.viewer a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
 }
 
-.token.class-name, .token.function{
-    color: #c92337;
+.viewer a:hover {
+    text-decoration: underline;
+    color: #0056b3;
 }
 
-.toastui-editor-contents ul>li:before {
-    background-color: #727272;
-    border-radius: 50%;
-    content: "";
-    height: 5px;
-    margin-left: -17px;
-    margin-top: 10px;
-    width: 5px;
+/* 表格样式 */
+.viewer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.toastui-editor-contents blockquote {
-    border-left: 4px solid #222222;
-    color: #222222;
-    background-color: #f7f7f7;
-    margin: 14px 0;
-    padding: 0 16px;
+.viewer th, .viewer td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.toastui-editor-contents blockquote ol, .toastui-editor-contents blockquote p, .toastui-editor-contents blockquote ul {
-    color: #363530;
+.viewer th {
+    background-color: #f4f6f9;
+    color: #212121;
+    font-weight: 500;
 }
 
-.katex {
-    display: block;            text-align: center;        margin: 0 auto;        }
+.viewer tr:nth-child(even) {
+    background-color: #fafbfc;
+}
+
+/* 代码行内样式 */
+.viewer code {
+    background-color: #f4f6f9;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace !important;
+    font-size: 1em;
+    color: #d9534f;
+}
+
+/* 强调文本样式 */
+.viewer strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.viewer em {
+    font-style: italic;
+    color: #666;
+}
+
+/* 分隔线 */
+.viewer hr {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 30px 0;
+}
+
+/* 调整中文输入的字体和行高 */
+.viewer p, .viewer li, .viewer h1, .viewer h2, .viewer h3, .viewer blockquote, .viewer table {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* 代码块样式 (中文友好) */
+.viewer pre {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+}
+
+/* 标题字体适应中文 */
+.viewer h1, .viewer h2, .viewer h3 {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-weight: bold;
+}
+
+/* 代码行内样式 */
+.viewer code {
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+}
+
+/* 强调文本样式 */
+.viewer strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.viewer em {
+    font-style: italic;
+    color: #666;
+}
