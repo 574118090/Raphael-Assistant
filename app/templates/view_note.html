@@ -3,7 +3,11 @@
 {% block title %}查看笔记{% endblock %}
 
 {% block content %}
+<!-- 引入 Inter 字体 -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- 引入必要的CSS文件 -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/view_note.css') }}">
+<!-- 引入 Highlight.js 的 CSS 主题 -->
 <link rel="stylesheet" href="{{ url_for('static', filename='dist/highlight/default.min.css') }}"/>
 
 <div class="view-note-container">
@@ -21,9 +25,9 @@
         </div>
     </div>
     <div class="view-note-content">
-        <div id="viewer" class="viewer"></div>
-        <div class="divider"></div>
-        <textarea id="editor" class="editor"></textarea>
+        <div id="viewer" class="viewer" contenteditable="true">
+            <div></div> <!-- 初始空的div -->
+        </div>
     </div>
 </div>
 
@@ -39,11 +43,11 @@
     </div>
 </div>
 
-<script src="{{ url_for('static', filename='dist/markdown-it/markdown-it.min.js') }}"></script>
 <script src="{{ url_for('static', filename='dist/highlight/highlight.min.js') }}"></script>
-
+<script src="{{ url_for('static', filename='dist/turndown/turndown.js') }}"></script>
+<!-- 初始化 Highlight.js -->
 <script>hljs.highlightAll();</script>
-
+<!-- 引入 MathJax -->
 <script src="{{ url_for('static', filename='dist/mathjax/tex-mml-chtml.js') }}"></script>
 <script src="{{ url_for('static', filename='js/view_note.js') }}"></script>
 {% endblock %}

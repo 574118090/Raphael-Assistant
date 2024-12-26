@@ -10,6 +10,7 @@
     max-width: 90%;
     height: 82vh;
     margin: auto;
+    font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; /* 更新字体 */
 }
 
 .view-note-header {
@@ -25,12 +26,13 @@
     color: #555;
 }
 
+/* 按钮样式 */
 .back-button, .save-button, .export-button {
     background-color: #2f2f2f;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px;
+    border-radius: 8px; /* 增加圆角 */
     cursor: pointer;
     font-size: 16px;
     display: flex;
@@ -43,7 +45,7 @@
 }
 
 .back-button:hover:not(:disabled), .save-button:hover, .export-button:hover {
-    background-color: #929292;
+    background-color: #555555; /* 更柔和的悬停颜色 */
     transform: translateY(-2px);
 }
 
@@ -52,6 +54,7 @@
     cursor: not-allowed;
 }
 
+/* 模态窗口样式 */
 .modal {
     display: none;
     position: fixed;
@@ -68,11 +71,12 @@
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #ddd; /* 更浅的边框颜色 */
     width: 400px;
-    border-radius: 8px;
+    border-radius: 12px; /* 增加圆角 */
     text-align: center;
-    animation: fadeInZoom 0.1s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 增加阴影 */
+    animation: fadeInZoom 0.3s; /* 延长动画时间 */
 }
 
 .export-dropdown {
@@ -88,7 +92,7 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1000;
-    border-radius: 4px;
+    border-radius: 8px; /* 增加圆角 */
 }
 
 .export-option {
@@ -102,10 +106,11 @@
     text-align: left;
     cursor: pointer;
     font-size: 14px;
+    border-radius: 0; /* 保持选项矩形 */
 }
 
 .export-option:hover {
-    background-color: #f1f1f1;
+    background-color: #e0e0e0; /* 更柔和的悬停颜色 */
 }
 
 .export-dropdown:hover .export-menu {
@@ -135,7 +140,7 @@
     padding: 10px 20px;
     margin: 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px; /* 增加圆角 */
     cursor: pointer;
     font-size: 16px;
 }
@@ -166,124 +171,112 @@
     overflow: hidden;
 }
 
+/* 合并 .viewer 类 */
 .viewer {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    flex: 0 1 70%;
+    flex: 1;
     overflow-y: auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* 更接近 Notion 的白色背景 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 更柔和的阴影 */
     white-space: pre-wrap;
     word-wrap: break-word;
-    font-family: 'Times New Roman', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif; /* 使用 Inter 字体 */
     font-size: 16px;
     color: #333333;
+    border-radius: 8px; /* 增加圆角 */
+    margin: 0 auto; /* 居中 */
+    max-width: 900px; /* 设置最大宽度 */
+    line-height: 1.6; /* 增加行高 */
+    outline: none;
 }
 
-::marker{
-    padding-top: -50px;
+/* 新增：为可写的 div 添加鼠标悬停效果 */
+.viewer > div,
+.viewer > p,
+.viewer > h1,
+.viewer > h2,
+.viewer > h3,
+.viewer > blockquote,
+.viewer > pre,
+.viewer > li {
+    transition: background-color 0.3s ease; /* 添加平滑过渡 */
 }
 
-.editor {
-    flex: 1;
-    width: 100%;
-    padding: 20px;
-    font-family: '微软雅黑', sans-serif;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: none;
-    box-sizing: border-box;
-    height: 100%;
-}
-
-.divider {
-    height: 1px;
-    background-color: #ccc;
-    margin: 10px 0;
-}
-
-/* 基本页面设置 */
-.viewer {
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.5;
-    color: #333;
-    gap: 0%;
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 900px;
-    background-color: #ffffff;
+.viewer > div:hover,
+.viewer > p:hover,
+.viewer > h1:hover,
+.viewer > h2:hover,
+.viewer > h3:hover,
+.viewer > blockquote:hover,
+.viewer > pre:hover,
+.viewer > li:hover {
+    background-color: #f0f0f0; /* 悬停时的背景颜色 */
 }
 
 /* 标题样式 */
 .viewer h1 {
-    font-size: 36px;
-    font-weight: 600;
+    font-size: 32px; /* 调整标题大小 */
+    font-weight: 700; /* 加粗 */
     color: #212121;
-    text-align: center;
+    text-align: left; /* 左对齐 */
+    margin-bottom: 20px; /* 增加下边距 */
 }
 
 .viewer h2 {
-    font-size: 28px;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 24px; /* 调整标题大小 */
+    font-weight: 600;
+    margin-bottom: 15px;
     color: #212121;
 }
 
 .viewer h3 {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     color: #212121;
+    margin-bottom: 10px;
 }
 
 .viewer p {
-    margin-top: 0px;
-    margin-bottom: -5px;
+    margin-top: 0;
+    margin-bottom: 16px; /* 增加段落下边距 */
+    color: #555555; /* 更柔和的文本颜色 */
 }
 
 /* 代码块样式 */
 .hljs {
-    padding: 10px;
+    padding: 15px;
     background-color: #f4f6f9;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
-    font-family: 'Courier New', monospace !important;
-    font-weight: 500;
+    font-family: 'Courier New', monospace;
     font-size: 16px;
-    height: 100%;
-    color: #3e3e3e; 
+    color: #3e3e3e;
+    overflow-x: auto;
+    margin-bottom: 20px; /* 增加下边距 */
 }
 
 /* 引用样式 */
 .viewer blockquote {
     border-left: 4px solid #2f2f2f;
-    padding-left: 15px;
-    margin-top: 0;
+    padding-left: 20px; /* 增加内边距 */
+    margin: 20px 0;
     color: #666;
     background-color: #f4f6f9;
-    margin: 20px 0;
+    border-radius: 4px; /* 增加圆角 */
+    font-style: italic; /* 斜体 */
 }
 
 /* 列表样式 */
-.viewer ol {
-    display: flex;
-    flex-direction: column;
-    padding-left: 20px;
-    margin-block-end: -20px;
-}
-
-.viewer ul{
-    display: flex;
-    padding-inline-start: 0px;
-    flex-direction: column;
-    margin-block-end: 10px;
-    padding-left: 20px;
+.viewer ol, .viewer ul {
+    padding-left: 25px; /* 增加左填充 */
+    margin-bottom: 16px; /* 增加下边距 */
 }
 
 .viewer li {
-    flex: auto;
-    margin-block-start: 0px;
+    margin-bottom: 8px; /* 增加列表项间距 */
 }
 
 /* 链接样式 */
@@ -304,6 +297,9 @@
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 20px;
+    border: 1px solid #e0e0e0; /* 增加表格边框 */
+    border-radius: 8px; /* 增加圆角 */
+    overflow: hidden; /* 隐藏溢出部分 */
 }
 
 .viewer th, .viewer td {
@@ -315,7 +311,7 @@
 .viewer th {
     background-color: #f4f6f9;
     color: #212121;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .viewer tr:nth-child(even) {
@@ -324,17 +320,17 @@
 
 /* 代码行内样式 */
 .viewer code {
+    background-color: #f4f6f9;
+    padding: 2px 5px;
     border-radius: 4px;
-    font-family: 'Consolas';
-    font-size: 16px;
-    line-height: 1;
-    font-weight: 400;
+    font-family: 'Courier New', monospace !important;
+    font-size: 1em;
     color: #d9534f;
 }
 
 /* 强调文本样式 */
 .viewer strong {
-    font-weight: bold;
+    font-weight: 600;
     color: #007bff;
 }
 
@@ -367,19 +363,28 @@
     font-weight: bold;
 }
 
-/* 强调文本样式 */
-.viewer strong {
-    font-weight: bold;
-    color: #007bff;
-}
-
-.viewer em {
-    font-style: italic;
-    color: #666;
-}
-
 /* MathJax 样式调整 */
 .MathJax_Display {
     text-align: center;
     margin: 1em 0;
+    font-size: 1.2em; /* 增大数学公式字体 */
+}
+
+/* 代码块的滚动条样式（可选） */
+.viewer pre::-webkit-scrollbar {
+    width: 8px;
+}
+
+.viewer pre::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 8px;
+}
+
+.viewer pre::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 8px;
+}
+
+.viewer pre::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }
